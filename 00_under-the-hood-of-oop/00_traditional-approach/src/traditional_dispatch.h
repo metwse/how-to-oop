@@ -9,9 +9,9 @@
 
 /**
  * @brief One gigantic function for handling a payload.
- * @param msg One line, representing a message
+ * @param payload One line, representing a payload
  */
-void handle_message(char *msg);
+void handle_payload(char *payload);
 
 
 #endif

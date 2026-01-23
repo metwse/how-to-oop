@@ -4,23 +4,24 @@
 #include <string.h>
 
 
-void handle_message(char *msg)
+void handle_payload(char *payload)
 {
-	char first_char = msg[0];
+	char first_char = payload[0];
 	char *content, *receiver;
 
 	switch (first_char) {
 	case '/':
-		printf("Command: %s\n", strtok(msg, " "));
+		printf("Command: %s\n", strtok(payload, " "));
 		break;
 	case '@':
 	case '#':
-		receiver = strtok_r(&msg[1] /* strip @ or # */, " ", &content);
+		receiver = strtok_r(&payload[1] /* strip @ or # */, " ",
+				    &content);
 		printf("Direct message to %s: %s\n",
 		       receiver,
 		       content);
 		break;
 	default:
-		printf("Global message: %s\n", msg);
+		printf("Global message: %s\n", payload);
 	}
 }

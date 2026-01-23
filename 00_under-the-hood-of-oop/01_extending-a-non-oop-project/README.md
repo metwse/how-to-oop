@@ -81,7 +81,7 @@ Your program should:
 ## Hints
 - Consider using a struct to represent a buffered payload and enum for type of
   it
-- You might need a `union` or `void *` to store different payload data
+- You might need a `union` to store different payload data
 - Dynamic allocation (`malloc`) will be necessary for the buffer
 - Think about how to represent "variable number of arguments"
 
@@ -90,7 +90,7 @@ Your program should:
 The problem this reveals is that the traditional approaches make extensions
 **exponentially harder**:
 - Exercise 00: Handle 4 message types -> ~50 lines
-- Exercise 01: Add arguments + buffering + separate processing -> ~200+ lines
+- Exercise 01: Add arguments + buffering + separate processing -> ~300+ lines
 
 <details>
   <summary>
@@ -101,4 +101,10 @@ The problem this reveals is that the traditional approaches make extensions
   The agony of extending your code will be unbearable. You will eventually be
   forced to either perform a complete rewrite to accommodate new features or
   fundamentally change your design principles to escape the impending misery.
+
+  Inspect the [solution](./) for this exercise. Current design principle
+  becoming increasingly unmaintainable with
+  [new requirements](../02_oh-no/README.md).
 </details>
+
+

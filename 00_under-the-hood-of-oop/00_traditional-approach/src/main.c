@@ -9,7 +9,7 @@ int main(int argc, const char **args)
 {
 	if (argc != 2) {
 		fprintf(stderr, "Invalid number of arguments. Perhaps, you "
-			        "forgot providing argument.");
+			        "forgot providing argument.\n");
 
 		return EXIT_FAILURE;
 	}
@@ -17,7 +17,7 @@ int main(int argc, const char **args)
 	FILE *file = fopen(args[1], "r");
 
 	if (file == NULL) {
-		fprintf(stderr, "Could not open %s.", args[1]);
+		fprintf(stderr, "Could not open %s.\n", args[1]);
 
 		return EXIT_FAILURE;
 	}
@@ -31,7 +31,7 @@ int main(int argc, const char **args)
 
 		line[line_len - 1] = '\0';  // Remove newline character at
 					    // the end of the line.
-		handle_message(line);
+		handle_payload(line);
 	}
 
 	return EXIT_SUCCESS;
