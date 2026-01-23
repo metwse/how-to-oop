@@ -1,0 +1,8 @@
+/login metw SuperSecretP4%%w0rd
+Hello, world!
+@bob How are you doing?
+#announcements Server maintenance tonight
+This is a global broadcast
+/logout
+@alice Thanks for your help
+#general See you all later

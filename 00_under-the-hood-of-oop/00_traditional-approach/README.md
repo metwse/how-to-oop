@@ -10,7 +10,7 @@ extensible.
 Write a C program that reads a file line by line and processes different types
 of messages:
 
-### Message Types
+### Payload Types
 1. **Commands** - Lines starting with `/`
    - These are system commands. Commands may continue with arguments, ignore
      them and just print the command name.
@@ -36,16 +36,16 @@ Your program should:
 
 1. Accept a filename as a command-line argument
 2. Read the file line by line
-3. Identify the message type based on the first character
-4. Process and print each message according to its type
+3. Identify the payload type based on the first character
+4. Process and print each payload according to its type
 5. Handle empty lines gracefully (skip them)
 6. Close the file and exit cleanly
 
 You do not need to write production-grade codes. You are allowed to leak
-memory, ignore boundary check...
+memory, ignore boundary check etc.
 
 ## Example
-### Input File (`messages.txt`)
+### Input File (`payloads.txt`)
 ```
 /login metw SuperSecretP4%%w0rd
 Hello, world!
@@ -70,12 +70,12 @@ Group message to general: See you all later
 ```
 
 ## What You will Learn
-
 This exercise demonstrates the traditional approach to handling different
 types:
+
 - Lots of if/else or switch statements
 - Duplicated logic for similar operations
-- Hard to extend when adding new message types
+- Hard to extend when adding new payload types
 
 After completing this, you'll appreciate how function pointers can simplify
 this pattern!
@@ -84,4 +84,4 @@ this pattern!
 
 Implement logic for this task yourself, and then inspect the [solution](./).
 After that, you can start working on the
-[second milestone](./01_extending-a-non-oop-project/README.md).
+[second milestone](../01_extending-a-non-oop-project/README.md).
