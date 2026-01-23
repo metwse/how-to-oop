@@ -34,5 +34,7 @@ int main(int argc, const char **args)
 		handle_payload(line);
 	}
 
+	fclose(file);
+
 	return EXIT_SUCCESS;
 }
