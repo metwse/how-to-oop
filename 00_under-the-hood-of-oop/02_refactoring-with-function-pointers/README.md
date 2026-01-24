@@ -178,4 +178,5 @@ so many functions, is not this even more repetitive?
   `process` function but a message's `destructor`)?
 - We still had problems in the old approach...
 
-**Up Next:** A detailed discussion on dynamic dispatch
+**Up Next:**
+[A detailed discussion on dynamic dispatch](../03_questions-arise/README.md).

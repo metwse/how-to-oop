@@ -1,5 +1,15 @@
 // Main method in ths file, parse_payload, gets unstructured input (text),
 // parses it into "struct payload". It sets appropriate function pointers.
+//
+// It is hard to write a clean parser with standard C. Parsing of unstructured
+// text input requires lots of edge case/error checking. We shall use external
+// libraries to handle that complexity - actually this approach just transfers
+// complexity into the library's code, e.g. maintained by specialized
+// open-source communities who have already navigated the minefield of
+// edge-case handling, and memory safety.
+//
+// In later chapters, we will use external dependencies to write more clean
+// parsers (http://github.com/metwse/rdesc)
 
 #include "payload.h"
 
