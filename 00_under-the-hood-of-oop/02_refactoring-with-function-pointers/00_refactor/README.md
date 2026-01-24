@@ -122,8 +122,11 @@ This function should:
 Then `push_payload()` becomes simpler:
 ```c
 void push_payload(struct payload_buffer *buf, const char *raw) {
-    struct payload parsed = parse_payload(raw);  // Construct
-    // ... add to buffer
+    struct payload parsed;
+
+    bool is_parsing_successful = parse_payload(&parsed, raw);  // Construct
+
+    // ... add to buffer (if is_parsing_successful)
 }
 ```
 

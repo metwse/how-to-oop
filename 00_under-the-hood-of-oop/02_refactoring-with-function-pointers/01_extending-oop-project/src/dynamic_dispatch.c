@@ -58,4 +58,3 @@ void destroy(struct payload_buffer *buf)
 	free(buf->payloads);
 	free(buf);
 }
-
