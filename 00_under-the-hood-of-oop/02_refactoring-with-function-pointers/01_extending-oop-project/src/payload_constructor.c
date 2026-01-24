@@ -35,7 +35,10 @@ static void message_constructor(struct payload *p, const char *raw)
 	p->destroy = destroy_message;
 	p->process = process_message;
 
-	// shorthand variable for receivers field
+	// Nested polymorphism: each receiver is polymorphic!
+	// They can be direct (@user), group (#channel), or global (no prefix)
+	// Each receiver knows how to transmit and destroy itself shorthand
+	// variable for receivers field
 	struct message_receiving_entity *receivers;
 	assert((receivers = malloc(sizeof(struct message_receiving_entity))));
 
@@ -49,17 +52,18 @@ static void message_constructor(struct payload *p, const char *raw)
 		for (name_end = content_offset;
 		     raw[name_end] != ' '; name_end++);
 
-		char *receiver_name = malloc(sizeof(struct message_receiving_entity) *
+		char *receiver_name = malloc(sizeof(char) *
 					     (name_end - content_offset));
 
 		for (int i = content_offset + 1; raw[i] != ' '; i++)
 			receiver_name[i - content_offset - 1] = raw[i];
 
-		receiver_name[name_end - content_offset] = '\0';
+		receiver_name[name_end - content_offset - 1] = '\0';
 
 		if (receiver_count >= 1) {
 			assert((receivers = realloc(receivers,
-				sizeof(struct message_receiving_entity) * (receiver_count + 1))));
+				sizeof(struct message_receiving_entity) *
+			        (receiver_count + 1))));
 		}
 
 		receivers[receiver_count] = (struct message_receiving_entity) {
