@@ -49,7 +49,7 @@ tests: $(TEST_TARGETS)
 all: $(DIST_DIR)/main $(TEST_TARGETS)
 
 clean:
-	$(RM) $(DIST_DIR)
+	$(RM) $(DIST_DIR) docs
 
 docs:
 	doxygen
