@@ -1,6 +1,6 @@
-# Questions Arise: The Limits of Manual Polymorphism
+# Questions Arise
 In Exercise 02, we eliminated giant switch statements using function pointers.
-But we have created new problems.
+But we have created new problems and reached limits of manual polymorphism.
 
 ## The Paradox of Repetition
 We complained about switch/case being repetitive. But look at what we wrote:
@@ -160,7 +160,7 @@ Function pointers solve the processing problem but create new problems:
 The pattern: Each solution introduces new complexity.
 
 ## The Fundamental Limitation
-We have been manually implementing OOP patterns in C. This works, but
+We have been manually implementing OOP patterns in C. This works, but it is
 *verbose* - requires lots of boilerplate.
 
 C++ doesn't invent new concepts. It automates what we have been doing. Recall
@@ -196,8 +196,7 @@ You have now implemented:
 2. Polymorphism with function pointers (Exercise 02)
 3. Polymorphism with vtables (Exercise 03) ([solutions](./))
 
-[On next module](../04_oop-with-cpp/README.md), we will translate Exercise 02
-directly to C++ and see:
+We will translate Exercise 02 directly to C++ and see:
 - How `class` eliminates manual vtable management
 - How constructors automate function pointer assignment
 - How `virtual` provides type-safe polymorphism
@@ -206,3 +205,7 @@ directly to C++ and see:
 OOP languages exist because manual polymorphism is tedious and error-prone.
 Every limitation we have hit is a feature C++ automates. You are ready to
 appreciate what C++ actually does.
+
+A brief detour from polymorphism: Before discussing C++ polymorphism features,
+we should first cover how resources are managed using
+[RAII](../04_raii/README.md).
