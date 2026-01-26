@@ -169,27 +169,28 @@ public:
 RAII objects can contain other RAII objects. Cleanup happens automatically in
 the correct order.
 
-### Example: Payload with Multiple Strings
+### Example: Command with Multiple Strings
+On upcoming exercises, we will implement command with *inheritance*. But since
+we have not covered inheritance yet, this example does not use it:
 ```cpp
-class Payload {
+class LoginCommand {
 private:
-    String command;    // RAII object 1
-    String username;   // RAII object 2
-    String password;   // RAII object 3
+    String username;   // RAII object 1
+    String password;   // RAII object 2
 
 public:
-    Payload(const char *cmd, const char *user, const char *pass)
-        : command(cmd), username(user), password(pass) {
-        std::cout << "Payload constructed\n";
+    LoginCommand(const char *cmd, const char *user, const char *pass)
+        : username(user), password(pass) {
+        std::cout << "LoginCommand constructed\n";
     }
 
-    ~Payload() {
-        std::cout << "Payload destructed\n";
+    ~LoginCommand() {
+        std::cout << "LoginCommand destructed\n";
         // String destructors called automatically after this!
     }
 
     void process() {
-        std::cout << "Processing: " << command.c_str() << "\n";
+        // ... business logic for login
     }
 };
 ```
@@ -197,14 +198,13 @@ public:
 ### Full Execution:
 ```cpp
 int main() {
-    Payload p("login", "alice", "s3cr3t");
+    LoginCommand p("alice", "s3cr3t");
     p.process();
 }
 ```
 
 ### Output:
 ```
-String created: login       ← command constructor
 String created: alice       ← username constructor
 String created: s3cr3t      ← password constructor
 Payload constructed
@@ -212,7 +212,6 @@ Processing: login
 Payload destructed
 String destroyed: s3cr3t    ← password destructor (reverse!)
 String destroyed: alice     ← username destructor
-String destroyed: login     ← command destructor
 ```
 
 *syntactic sugar*: You never called `delete` or wrote cleanup code. The
@@ -220,59 +219,53 @@ compiler generated the entire destruction chain!
 
 ## The Dependency Chain in Detail
 Construction order (top-to-bottom):
-1. `command` member constructed
-2. `username` member constructed
-3. `password` member constructed
-4. `Payload` constructor body runs
+1. `username` member constructed
+2. `password` member constructed
+3. `LoginCommand` constructor body runs
 
 Destruction order (bottom-to-top, reverse!):
-1. `Payload` destructor body runs
+1. `LoginCommand` destructor body runs
 2. `password` member destroyed
 3. `username` member destroyed
-4. `command` member destroyed
 
-**Why reverse?** If `Payload` constructor uses `command` in its body, `command`
-must outlive the `Payload` destructor body. Reverse order guarantees this.
+**Why reverse?** If `LoginCommand` constructor uses `username` and `password`
+in its body, `username` and `password` must outlive the `LoginCommand`
+destructor body. Reverse order guarantees this.
 
 ## Comparison: C vs C++
-C (Manual dependency tracking):
+Here is a simplified version of what we have been doing in C (Manual dependency
+tracking):
 ```c
-struct payload {
-    char *command;
+struct login_command {
     char *username;
     char *password;
 };
 
-void payload_init(struct payload *p, const char *cmd,
+void payload_init(struct login_command *cmd,
                   const char *user, const char *pass) {
-    p->command = malloc(strlen(cmd) + 1);
-    strcpy(p->command, cmd);
+    cmd->username = malloc(strlen(user) + 1);
+    strcpy(cmd->username, user);
 
-    p->username = malloc(strlen(user) + 1);
-    strcpy(p->username, user);
-
-    p->password = malloc(strlen(pass) + 1);
-    strcpy(p->password, pass);
+    cmd->password = malloc(strlen(pass) + 1);
+    strcpy(cmd->password, pass);
 }
 
 void payload_destroy(struct payload *p) {
-    free(p->password);   // Manual order!
-    free(p->username);   // Manual order!
-    free(p->command);    // Manual order!
+    free(cmd->password);   // Manual order!
+    free(cmd->username);   // Manual order!
 }
 ```
 
 C++ (Automatic dependency tracking):
 ```cpp
-class Payload {
+class Logincommand {
 private:
-    String command;
     String username;
     String password;
 
 public:
-    Payload(const char *cmd, const char *user, const char *pass)
-        : command(cmd), username(user), password(pass) {}
+    LoginCommand(const char *user, const char *pass)
+                : username(user), password(pass) {}
     // Destructor generated automatically with correct order!
 };
 ```
@@ -282,12 +275,17 @@ public:
 `String`.
 
 ```cpp
-class Payload {
+class Message {
 private:
     std::string content;  // RAII, manages char * internally
+    std::vector<MessageReceivingEntity> receivers;  // RAII manages list and
+                                                    // receivers internally
 
 public:
-    Payload(const std::string& str) : content(str) {}
+    Message(const std::string& str) : content(str) {}
+
+    // std::vector destructor called and it called MessageReceivingEntity's
+    // destructor
     // std::string destructor called automatically
 };
 ```
@@ -310,7 +308,8 @@ classes.
 
 You have now seen RAII with manual `char *`. Next:
 
-1. Implement your Payload class using custom String
+1. Implement your payload classes using custom String (do not implement all of
+   them, just a few to get used to defining classes)
 2. See how construction/destruction order prevents bugs
 3. Replace custom String with `std::string` (same behavior, more features)
 4. Understand: Standard library is built on RAII principles
