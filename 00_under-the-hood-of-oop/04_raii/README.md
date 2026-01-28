@@ -317,3 +317,6 @@ You have now seen RAII with manual `char *`. Next:
 RAII is not a C++ feature or a magic, it is a design pattern. C++ makes it the
 default through automatic constructor/destructor calls. This is syntactic sugar
 that prevents entire categories of memory bugs.
+
+We will continue our discussion with C++ virual tables on
+[next chapter](../05_virtual-methods-and-inheritance/README.md).
