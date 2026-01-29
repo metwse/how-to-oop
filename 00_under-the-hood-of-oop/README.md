@@ -56,8 +56,9 @@ double result = operation(5.0, 3.0);  // Calls add(5.0, 3.0)
 
 We put parenthesis to distinguish return type from function pointer syntax:
 ```c
-// concate_arays variable is a pointer to a function that returns an int pointer
-int *(*concate_arays)(int *arr1, int *arr2, int size1, int size2);
+// concatenate_arrays variable is a pointer to a function that returns an int
+// pointer
+int *(*concatenate_arrays)(int *arr1, int *arr2, int size1, int size2);
 ```
 
 The key insight: **function pointers let you treat functions as variable**. You

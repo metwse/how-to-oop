@@ -154,9 +154,10 @@ public:
 
 protected:
     // Derived classes must implement this
-    virtual void process_arguments() = 0;  // Pure virtual
+    virtual void process_arguments() = 0;  // Pure virtual, check end of this
+                                           // README for details
     // Syntax is not so important. When you are not sure about syntax, Google
-    // it. We will discuss "pure virtual" functions later on.
+    // it.
 
     string command_name;
 };
@@ -307,3 +308,36 @@ You are now familiar with how C++ automates virtual table construction. Next:
 `virtual` is syntactic sugar for the vtable pattern you built manually.
 Inheritance is syntactic sugar for sharing vtable entries and data. C++ did not
 invent polymorphism, it automated the plumbing.
+
+
+## Deep Dive into Pure Virtual Methods
+In our Paload, Command, and Message examples, we used a specific syntax:
+`virtual void <method_name>() = 0;`. This is called a pure virtual method.
+
+A pure virtual method is a declaration that a function must exist, but the base
+class provides no implementation for it. It acts as a mandatory contract: any
+lass that inherits from Payload or Command is required to implement this method
+to be considered complete.
+
+When a class contains at least one pure virtual method, it becomes an
+*Abstract Class*.
+- No Instantiation: You cannot create an object of an abstract class (e.g.,
+  `new Command("login")` will result in a compiler error).
+- Incomplete Blueprint: The class exists solely to provide a common interface
+  and shared data for its children.
+
+### Under the Hood: The C Parallel
+In your manual C vtable implementation, a pure virtual method is like defining
+a function pointer in your `vtable` struct but purposefully leaving it
+unassigned in the base "type".
+
+In C: If you accidentally called a `NULL`: function pointer, your program would
+crash at runtime.
+
+In C++: The compiler prevents this crash by refusing to compile any code that
+tries to create an object that hasn't fulfilled its pure virtual requirements.
+
+As you work through Exercise 05, notice that if you forget to implement
+`process_arguments()` in classes that inherit Command, or `process_recipient()`
+in classes that inherit Message, your code will not compile. This is the
+"syntactic sugar" of compile-time safety replacing manual runtime checks.
