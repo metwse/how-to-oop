@@ -67,8 +67,7 @@ public:
         cout << "Processing generic payload" << endl;
     }
 
-    // Virtual destructor (critical!)
-    virtual ~Payload() {}
+    virtual ~Payload() = default;
 };
 
 class Message : public Payload {
@@ -142,7 +141,8 @@ Base class contains shared behavior:
 ```cpp
 class Command : public Payload {
 public:
-    Command(const char *name) : command_name(name) {}
+    Command(const char *command_name_)
+        : command_name { command_name_ } {}
 
     // Shared implementation
     void process() override {
@@ -150,15 +150,15 @@ public:
         process_arguments();  // Call derived class method
     }
 
+    virtual ~Command() {}
+
+protected:
     // Derived classes must implement this
     virtual void process_arguments() = 0;  // Pure virtual
     // Syntax is not so important. When you are not sure about syntax, Google
     // it. We will discuss "pure virtual" functions later on.
 
-    virtual ~Command() {}
-
-protected:
-    const char *command_name;
+    string command_name;
 };
 ```
 
@@ -166,39 +166,40 @@ Derived classes implement specific behavior:
 ```cpp
 class LoginCommand : public Command {
 public:
-    LoginCommand(const char *user, const char *pass)
-        : Command("login"), username(user), password(pass) {}
+    LoginCommand(const char *username_, const char *password_)
+        : Command { "login" }, username { username_ }, password { password_ } {}
 
+private:
     // Implement required method
     void process_arguments() override {
         cout << "  Arguments: [username: " << username
              << ", password: " << password << "]" << endl;
     }
 
-private:
     string username;
     string password;
 };
 
 class JoinCommand : public Command {
 public:
-    JoinCommand(const char *ch)
-        : Command("join"), channel(ch) {}
-
-    void process_arguments() override {
-        cout << "  Arguments: [channel: " << channel << "]\n";
-    }
+    JoinCommand(const char *channel_)
+        : Command { "join" }, channel { channel_ } {}
 
 private:
+    void process_arguments() override {
+        cout << "  Arguments: [channel: " << channel << "]" << endl;
+    }
+
     string channel;
 };
 
 class LogoutCommand : public Command {
 public:
-    LogoutCommand() : Command("logout") {}
+    LogoutCommand() : Command { "logout" } {}
 
+private:
     void process_arguments() override {
-        cout << "  Arguments: []\n";
+        cout << "  Arguments: []" << endl;
     }
 };
 ```
@@ -206,9 +207,9 @@ public:
 ```cpp
 // Polymorphism: store different types in same pointer type
 Payload *payloads[3];
-payloads[0] = new LoginCommand("alice", "pass123");
-payloads[1] = new JoinCommand("general");
-payloads[2] = new LogoutCommand();
+payloads[0] = new LoginCommand { "alice", "pass123" };
+payloads[1] = new JoinCommand { "general" };
+payloads[2] = new LogoutCommand {};
 
 // Dynamic dispatch - each calls correct method
 for (int i = 0; i < 3; i++) {
@@ -264,13 +265,13 @@ virtual ~ClassName() {}  // Critical for polymorphic classes!
 
 **Why critical?** Without virtual destructor:
 ```cpp
-Payload *p = new Message(...);
+Payload *p = new Message { ... };
 delete p;  // Only calls ~Payload(), leaks Message members!
 ```
 
 With virtual destructor:
 ```cpp
-Payload *p = new Message(...);
+Payload *p = new Message { ... };
 delete p;  // Calls ~Message() then ~Payload() - correct order!
 ```
 
@@ -297,12 +298,12 @@ You are now familiar with how C++ automates virtual table construction. Next:
 2. Implement message hierarchy. Create base `Message` class with:
    `DirectMessage`, `GroupMessage`, and `GlobalMessage`. Use inheritance to
    share message content storage and common processing logic.
-3. Create `PayloadBuffer` (polymorphic buffer) that stores `Payload *` pointers
-   (base class pointers) and can hold any derived type (commands or messages).
-   Use `std::vector` for this buffer.
-4. Test virtual destruction via adding print statements in destructors
-   (to verify derived destructor runs first and base destructor runs second)
+3. Create polymorphic buffer that stores `Payload *` pointers (base class
+   pointers) and can hold any derived type (commands or messages).
+4. Test virtual destruction via adding print statements in destructors to
+   verify derived destructor runs first and base destructor runs second. (This
+   task not implemented in provided solution to make code easier to read.)
 
 `virtual` is syntactic sugar for the vtable pattern you built manually.
-Inheritance is syntactic sugar for sharing vtable entries and data. C++
-did not invent polymorphism, it automated the plumbing.
+Inheritance is syntactic sugar for sharing vtable entries and data. C++ did not
+invent polymorphism, it automated the plumbing.
