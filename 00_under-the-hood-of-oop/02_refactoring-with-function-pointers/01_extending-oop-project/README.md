@@ -126,7 +126,7 @@ What C++ provides is syntactic sugar for these patterns:
 - Virtual functions: Polymorphism without manual function pointer management
 - Type safety: Compiler ensures you do not mix incompatible behaviors
 
-## The Limitation We've Hit
+## The Limitation We Have Hit
 Function pointers solve the processing problem (no more giant switch
 statements!), but they create new problems:
 
@@ -145,7 +145,7 @@ concepts - they automated the patterns we've been writing by hand.
 Next steps:
 1. Translate this exact solution to C++
 2. See how classes eliminate the repetition
-3. Understand that C++ is just syntactic sugar over what you've been doing
+3. Understand that C++ is just syntactic sugar over what you have been doing
 
 The core concepts remain the same. C++ just handles the plumbing for you.
 

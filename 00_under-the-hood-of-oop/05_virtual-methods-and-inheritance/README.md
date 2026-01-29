@@ -316,8 +316,8 @@ In our Paload, Command, and Message examples, we used a specific syntax:
 
 A pure virtual method is a declaration that a function must exist, but the base
 class provides no implementation for it. It acts as a mandatory contract: any
-lass that inherits from Payload or Command is required to implement this method
-to be considered complete.
+class that inherits from Payload or Command is required to implement this
+method to be considered complete.
 
 When a class contains at least one pure virtual method, it becomes an
 *Abstract Class*.

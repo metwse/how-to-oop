@@ -71,9 +71,7 @@ Your program should:
    - Second pass: Process each buffered message, print them out
 3. Command argument parsing:
    - Extract command name and all arguments
-   - Store arguments in a suitable data structure
-   - `!important` You are not allowed to store number of arguments of a
-     command.
+   - Store arguments in an `union` structure
 4. Maintain compatibility with previous version:
    - Your code should still handle direct messages, group messages, and global
      messages from Exercise 00
@@ -81,7 +79,13 @@ Your program should:
 ## Hints
 - Consider using a struct to represent a buffered payload and enum for type of
   it
-- You might need a `union` to store different payload data
+- Recap: [union](https://www.w3schools.com/c/c_unions.php)
+  ```c
+  union payload_data {
+      struct { char *username; char *password; } login;
+      struct { char *content; } message;
+  };
+  ```
 - Dynamic allocation (`malloc`) will be necessary for the buffer
 - Think about how to represent "variable number of arguments"
 

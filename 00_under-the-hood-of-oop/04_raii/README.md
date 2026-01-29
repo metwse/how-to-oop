@@ -258,7 +258,7 @@ void payload_destroy(struct payload *p) {
 
 C++ (Automatic dependency tracking):
 ```cpp
-class Logincommand {
+class LoginCommand {
 private:
     String username;
     String password;
@@ -310,7 +310,9 @@ You have now seen RAII with manual `char *`. Next:
 
 1. Implement your payload classes using custom String (do not implement all of
    them, just a few to get used to defining classes)
-2. See how construction/destruction order prevents bugs
+2. See how construction/destruction order prevents bugs, by adding print
+   statemets to constructors/destructors. (in provided solution, this does not
+   implemented to make code easier to read.)
 3. Replace custom String with `std::string` (same behavior, more features)
 4. Understand: Standard library is built on RAII principles
 
@@ -318,5 +320,5 @@ RAII is not a C++ feature or a magic, it is a design pattern. C++ makes it the
 default through automatic constructor/destructor calls. This is syntactic sugar
 that prevents entire categories of memory bugs.
 
-We will continue our discussion with C++ virual tables on
+We will continue our discussion with C++ virtual tables on
 [next chapter](../05_virtual-methods-and-inheritance/README.md).

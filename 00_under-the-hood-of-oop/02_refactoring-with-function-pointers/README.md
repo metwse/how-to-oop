@@ -11,12 +11,9 @@
 
 # Refactoring with Function Pointers
 ## New Requirements
-1. Multiple receivers: Messages can now target multiple users/channels
-   - Example: `@alice @bob #general Hello everyone!`
-   - A single message goes to alice, bob, AND the general channel
-2. Bulk commands: Execute multiple commands in one line
-   - Example: `/login user pass; join general; logout`
-   - Commands separated by semicolons, executed sequentially
+Multiple receivers: Messages can now target multiple users/channels
+- Example: `@alice @bob #general Hello everyone!`
+- A single message goes to alice, bob, AND the general channel
 
 ## Stop! Before You Continue...
 **Question:** How would you implement these in your Exercise 01 code?
@@ -104,6 +101,10 @@ Requirements" section.
        // ... data
    }
    ```
+   We use the `self` reference because the process function is a standalone
+   function that exists outside of the `struct payload` instance. We must
+   explicitly pass the memory address of the struct so the function knows which
+   specific object's data it should operate on.
 3. Each payload type sets its own processing function:
    - Login command -> uses `process_login()` function
    - Direct message -> uses `process_direct_message()` function

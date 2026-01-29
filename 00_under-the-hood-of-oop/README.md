@@ -16,7 +16,7 @@ oriented languages are not doing anything magical, they are just providing
 
 # Under the Hood of OOP: Manual Object Interface
 In this introductory module, the goal is to simulate an interface and
-polymorphism using C programming langulage.
+polymorphism using C programming language.
 
 We shall start by explaining what is polymorphism.
 
