@@ -8,9 +8,9 @@ extensible.
 
 ## Objective
 Write a C program that reads a file line by line and processes different types
-of messages:
+of messages.
 
-### Payload Types
+Payload Types:
 1. **Commands** - Lines starting with `/`
    - These are system commands. Commands may continue with arguments, ignore
      them and just print the command name.
@@ -31,9 +31,7 @@ of messages:
    - Print `"Global message: <content>"`
    - Example: `Hello world` prints `"Global message: Hello world"`
 
-## Requirements
 Your program should:
-
 1. Accept a filename as a command-line argument
 2. Read the file line by line
 3. Identify the payload type based on the first character
@@ -42,10 +40,10 @@ Your program should:
 6. Close the file and exit cleanly
 
 You do not need to write production-grade codes. You are allowed to leak
-memory, ignore boundary check etc.
+memory, ignore boundary checks etc.
 
 ## Example
-### Input File (`payloads.txt`)
+Input file `payloads.txt`
 ```
 /login metw SuperSecretP4%%w0rd
 Hello, world!
@@ -57,7 +55,7 @@ This is a global broadcast
 #general See you all later
 ```
 
-### Expected Output
+Expected Output
 ```
 Command: login
 Global message: Hello, world!
@@ -82,6 +80,6 @@ this pattern!
 
 ---
 
-Implement logic for this task yourself, and then inspect the [solution](./).
+Implement logic for this task yourself, and then inspect the solution 01.
 After that, you can start working on the
-[second milestone](../01_extending-a-non-oop-project/README.md).
+[second milestone](../02_extending-a-non-oop-project.html).

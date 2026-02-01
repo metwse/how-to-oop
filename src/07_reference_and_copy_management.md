@@ -1,14 +1,14 @@
 # References and Copy Management
-In Chapter 04, we built a custom `String` class with RAII. In Chapter 05, we
-used it with polymorphism. But there is a hidden danger: the default copy
-behavior can cause double-free crashes.
+In Ch05, we built a custom `String` class with RAII. In Ch06, we used it with
+polymorphism. But there is a hidden danger: the default copy behavior can cause
+double-free crashes.
 
 This chapter covers two essential topics:
 1. References to avoid expensive copies
 2. Copy control for making RAII classes safe to copy
 
 ## The Hidden Bug in Our Code
-Recall the custom `String` class from Chapter 04:
+Recall the custom `String` class from Ch05:
 ```cpp
 class String {
 public:
@@ -26,8 +26,7 @@ private:
 };
 ```
 
-This code has a critical bug:
-### The Double-Free Disaster
+This code has a critical bug: *The Double-Free Disaster*
 ```cpp
 void print_string(String s) {  // !bug: passes by value (creates copy)
     cout << s.c_str() << endl;
@@ -52,7 +51,6 @@ Step-by-step:
 This is the shallow copy problem: copying the pointer, not the data.
 
 ## Solution 1: References - Stop Copying
-### Pass by Reference
 Instead of creating a copy, pass a reference (alias) to the original:
 ```cpp
 void print_string(String &s) {  // Reference, not copy
@@ -68,7 +66,7 @@ int main() {
 `String &s` means "s is just another name for the original String, and I
 promise not to modify it via RAII methods."
 
-### Reference Syntax
+**Reference Syntax**
 ```cpp
 int x = 42;
 int &ref = x;     // ref is an alias for x
@@ -78,7 +76,7 @@ cout << x;        // Prints 100
 cout << ref;      // Prints 100 (same variable!)
 ```
 
-### References vs Pointers
+**References vs Pointers**
 | Feature | Pointer | Reference |
 |---------|---------|-----------|
 | Can be null? | Yes (`nullptr`) | No (must refer to something) |
@@ -127,7 +125,7 @@ void print_string(const String &s) {
 }
 ```
 
-### Exercise 1: Fix the References
+### Exercise 01: Fix the References
 Refactor this code to use references:
 
 ```cpp
@@ -156,7 +154,7 @@ Tasks:
 2. Fix `append_content` to modify the original message
 3. Add `const` to methods that don't modify objects
 
-## Solution 2: Deep Copy (The Rule of Three)
+## Solution 2: Deep Copy - Rule of Three
 References solve the "passing to functions" problem. But what about this?
 
 ```cpp
@@ -233,7 +231,6 @@ If you define any of these, you should define all three:
 **Why?** If your class needs a custom destructor (manages resources), the default
 copy operations are almost certainly wrong.
 
-### Visualizing Shallow vs Deep Copy
 Shallow copy (default, WRONG for our String):
 ```
 Before copy:
@@ -264,8 +261,8 @@ After name1 destroyed:
 ### The Rule of Five (C++11)
 Modern C++ adds move operations:
 
-4. Move constructor `T(T&&)`
-5. Move assignment `T& operator=(T&&)`
+4. Move constructor `T(T &&)`
+5. Move assignment `T &operator=(T &&)`
 
 For now, we will stick with rule of three. Move semantics is an optimization
 (transfer instead of copy), but not essential for correctness.
@@ -302,7 +299,7 @@ private:
 Rule of Zero: If all your members are RAII types (`std::string`, `std::vector`,
 `std::unique_ptr`), you don't need custom copy/destructor.
 
-### Exercise 2: Implement Rule of Three
+### Exercise 02: Implement Rule of Three
 ```cpp
 class Buffer {
 public:
@@ -401,7 +398,7 @@ class Message {
 ---
 
 These are fundamental C++ idioms you will use in every project. Combined with
-RAII (Ch04) and polymorphism (Ch05), you can now begin writing safe, modern
+RAII (Ch05) and polymorphism (Ch06), you can now begin writing safe, modern
 C++ code.
 
 Future topics (you will learn during your hands-on project):

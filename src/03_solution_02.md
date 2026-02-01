@@ -4,7 +4,7 @@ implements the first part of the task, multiple receivers. For function
 batching, try it yourself!
 
 ## What Changed in This Solution?
-This solution extends `00_refactor` with support for multiple receivers:
+This solution extends 01 with support for multiple receivers:
 
 Example Input:
 ```
@@ -18,7 +18,7 @@ Direct message to bob: Hello everyone!
 Group message to general: Hello everyone!
 ```
 
-### Key Innovation: Nested Polymorphism
+### 1. Nested Polymorphism
 We introduced *two levels* of polymorphic behavior:
 
 **Level 1 - Payloads:**
@@ -43,13 +43,14 @@ struct message_receiving_entity {
 Each receiver is polymorphic! Direct messages, group messages, and global
 messages all use the same interface but behave differently.
 
-### Architecture
+### 2. Architecture
 **File separation:**
 - `payload_constructor.c` - Parsing and construction
 - `payload_behaviors.c` - Behavioral implementations
 - `dynamic_dispatch.c` - Orchestration (clean!)
 
-This demonstrates composition: payloads contain arrays of polymorphic receivers.
+This demonstrates *composition*: payloads contain arrays of polymorphic
+receivers. We will discuss composition later on.
 
 ## The Problem: Too Much Repetition!
 Let's count the repetition we have encountered:
@@ -111,7 +112,7 @@ receivers[receiver_count] = (struct message_receiving_entity) {
 ---
 
 ## Enter: Syntactic Sugar
-As mentioned in [`introduction part`](../README.md), *syntactic sugar* is a
+As mentioned in [`introduction part`](./), *syntactic sugar* is a
 anguage feature that makes code easier to write without changing what it
 actually does.
 
@@ -151,5 +152,5 @@ The core concepts remain the same. C++ just handles the plumbing for you.
 
 ---
 
-But before switching to C++, we need to do
-[a detailed discussion on dynamic dispatch](../../03_questions-arise/README.md).
+But before switching to C++, we need to do a
+[detailed discussion on dynamic dispatch](./04_questions-arise.html).

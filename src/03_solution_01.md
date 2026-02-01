@@ -1,10 +1,10 @@
 # Refactored Solution: From Static to Dynamic Dispatch
-This directory contains the refactored version of Exercise 01, demonstrating
-how function pointers eliminate switch statements and improve code organization.
+This directory contains the refactored version of Ch02, demonstrating how
+function pointers eliminate switch statements and improve code organization.
 
-## What Changed from Exercise 01?
+## What Changed from Ch02?
 ### 1. Removed the Type Enum
-Exercise 01 (Static Dispatch):
+Ch02 (Static Dispatch):
 ```c
 enum payload_kind {
     COMMAND_LOGIN, COMMAND_JOIN, COMMAND_LOGOUT,
@@ -17,7 +17,7 @@ struct payload {
 };
 ```
 
-Exercise 02 (Dynamic Dispatch):
+Ch03 (Dynamic Dispatch):
 ```c
 struct payload {
     void (*process)(const struct payload *self);  // Behavior
@@ -30,7 +30,7 @@ struct payload {
 behavior through function pointers.
 
 ### 2. Eliminated Switch Statements for Destroy and Process
-Exercise 01:
+Ch02:
 ```c
 void process_next(struct payload_buffer *buf) {
     struct payload *p = &buf->payloads[buf->process_base];
@@ -51,7 +51,7 @@ void process_next(struct payload_buffer *buf) {
 }
 ```
 
-Exercise 02:
+Ch03:
 ```c
 void process_next(struct payload_buffer *buf) {
     struct payload *p = &buf->payloads[buf->process_base];
@@ -66,11 +66,11 @@ void process_next(struct payload_buffer *buf) {
 process itself.
 
 ### 3. File Organization for Isolation
-Exercise 01 Structure:
+Exercise 02 Structure:
 - `traditional_dispatch.h`: Everything (types, buffer, functions)
 - `traditional_dispatch.c`: All logic mixed together
 
-Exercise 02 Structure:
+Exercise 03 Structure:
 - `payload.h` / `payload.c`: Payload types and behaviors (process/destroy
    functions)
 - `dynamic_dispatch.h` / `dynamic_dispatch.c`: Buffer management and
@@ -84,12 +84,12 @@ is a quick explaination:
 Isolation means separating different concerns so changes in one area do not
 ripple through unrelated areas.
 
-In Exercise 01:
+In Ch02:
 - Adding a new payload type required changes in multiple functions
 - Buffer logic and payload logic were intertwined
 - Everything depended on the shared enum
 
-In Exercise 02:
+In Ch03:
 - Payload behaviors are self-contained (each has its own process/destroy
   functions)
 - Buffer management is isolated in `dynamic_dispatch.c`
@@ -142,6 +142,5 @@ Even with function pointers, we still have problems:
    (process + destroy)
 3. **No type safety:** Nothing prevents mixing incompatible function pointers
 
-**Next:** The [extended version](../01_extending-oop-project/) implements the
-new requirements (multiple receivers, bulk commands) to further demonstrate the
-benefits of dynamic dispatch.
+**Next:** The [extended version](../03_solution_02.md) implements the new requirements
+(multiple receivers) to further demonstrate the benefits of dynamic dispatch.

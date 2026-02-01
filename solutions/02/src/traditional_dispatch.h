@@ -76,8 +76,8 @@ union payload_data {
  * field determines which member of the data union is valid.
  */
 struct payload {
-	enum payload_kind kind;    /**< Type discriminator */
-	union payload_data data;   /**< Type-specific payload data */
+	enum payload_kind kind;  /**< Type discriminator */
+	union payload_data data;  /**< Type-specific payload data */
 };
 
 /**

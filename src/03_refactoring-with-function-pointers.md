@@ -1,13 +1,12 @@
-> `\begin{aside}`\
-> We called the enum-based approach "traditional dispatch" because it was the
-> familiar starting point, not because it is a standard pattern. It is actually
-> called *static dispatch*, the compiler determines which code to execute at
-> compile time based on the enum value. With function pointers, you are using
-> *dynamic dispatch*, the decision of which function to call is made at runtime
-> based on the function pointer stored in the object. Both achieve the same
-> goal (executing type-specific behavior), but dynamic dispatch provides more
-> flexibility at the cost of a small runtime overhead. \
-> `\end{aside}`
+term Static and Dynamic Dispatch
+  : We called the enum-based approach "traditional dispatch" because it was the
+    familiar starting point, not because it is a standard pattern. It is
+    actually called *static dispatch*, the compiler determines which code to
+    execute at compile time based on the enum value. With function pointers,
+    you are using *dynamic dispatch*, the decision of which function to call is
+    made at runtime based on the function pointer stored in the object. Both
+    achieve the same goal (executing type-specific behavior), but dynamic
+    dispatch provides more flexibility at the cost of a small runtime overhead.
 
 # Refactoring with Function Pointers
 ## New Requirements
@@ -16,13 +15,9 @@ Multiple receivers: Messages can now target multiple users/channels
 - A single message goes to alice, bob, AND the general channel
 
 ## Stop! Before You Continue...
-**Question:** How would you implement these in your Exercise 01 code?
+**Question:** How would you implement these in your Ch02 code?
 
-Think about it for a moment...
-
----
-
-**The painful reality:**
+Think about it for a moment... **The painful reality:**
 - You would need to rewrite `push_payload()` parsing logic, completely.
 - The `payload_data` union would need a new receiver list structure.
 - Multiple switch cases would change to handle arrays instead of single
@@ -31,9 +26,8 @@ Think about it for a moment...
 - Command parsing would need string splitting on semicolons.
 
 In other words: you would need to touch almost every function, risking bugs
-and spending hours debugging edge cases!
-
-*This is the moment* to ask: "Is there a better way to organize my code?"
+and spending hours debugging edge cases! *This is the moment* to ask: "Is there
+a better way to organize my code?"
 
 The answer is yes: *function pointers*.
 
@@ -50,9 +44,7 @@ payload type, you have to modify code in multiple places:
 This is called tight coupling. Everything is intertwined, one change ripples
 through the entire codebase.
 
-### Imagine more Future Requirements
-What if we need to add:
-
+Imagine more future requirements, what if we need to add:
 - **Timestamps** for each payload?
 - **Priority levels** (urgent, normal, low)?
 - **Validation** before processing?
@@ -68,10 +60,8 @@ which requires continuous maintenance and extensions.
 Instead of using switch statements everywhere, we can *store behavior with
 data*, recall *function pointers*.
 
-### Core Idea
-What if each payload could "know how to process itself"?
-
-```
+**Core Idea**: What if each payload could "know how to process itself"?
+```c
 // Traditional approach: separate data and behavior
 switch (payload->kind) {
     case COMMAND_LOGIN:
@@ -86,7 +76,7 @@ payload->process(payload);  // Each payload knows how to process itself!
 ```
 
 ## Your Mission
-Refactor your Exercise 01 code to use *function pointers* instead of switch
+Refactor your Ch02 code to use *function pointers* instead of switch
 statements, and then you will requested to implement features in "New
 Requirements" section.
 
@@ -138,8 +128,8 @@ we achieve the same thing with *function pointers*.
 
 ### Important Notes
 - We are keeping this simple, just a few function pointers per payload.
-- We are not building a full "virtual table" system yet. You will learn
-  details of that in upcoming milestones.
+- We are not building a full "virtual table" system yet. You will learn details
+  of that in upcoming milestones.
 - Focus on understanding how function pointers enable polymorphic behavior.
 - Later exercises will show more sophisticated patterns.
 
@@ -154,8 +144,7 @@ we achieve the same thing with *function pointers*.
 
 ## Expected Outcome
 Your code should:
-
-- Handle all the same payloads as Exercise 01.
+- Handle all the same payloads as Ch01.
 - Have no switch statements in `process_next()`.
 - Be easier to extend with new payload types.
 - Demonstrate how function pointers enable polymorphism.
@@ -164,10 +153,10 @@ After completing this, you will understand why object-oriented languages use
 virtual methods. They solve the exact same problem you just solved with
 function pointers!
 
-After completing the exercise on your own, inspect the
-[refactored](./00_refactor/) and
-[extended with new requirements](./01_extending-oop-project/) versions of
-Exercise 01.
+After completing the exercise on your own, inspect the notes on
+[refactored](./03_solution_01.html) and
+[extended with new requirements](./03_solution_02.html) solutions for
+this chapter.
 
 ---
 
@@ -180,4 +169,4 @@ so many functions, is not this even more repetitive?
 - We still had problems in the old approach...
 
 **Up Next:**
-[A detailed discussion on dynamic dispatch](../03_questions-arise/README.md).
+[A detailed discussion on dynamic dispatch](../04_questions-arise.html).

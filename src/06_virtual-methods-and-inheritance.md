@@ -1,10 +1,10 @@
 # Virtual Methods and Inheritance
-In [Exercise 03](../03_questions-arise/README.md), we discussed vtables and how
-they solve the problem of storing duplicate function pointers in every object.
-We also saw that manual vtable assignment is error-prone.
+In [Ch04](../04_questions-arise.html), we discussed vtables and how they solve
+the problem of storing duplicate function pointers in every object. We also saw
+that manual vtable assignment is error-prone.
 
-In [Exercise 04](../04_raii/README.md), we learned how C++ automates resource
-management with constructors and destructors.
+In [Ch05](../05_raii.html), we learned how C++ automates resource management
+with constructors and destructors.
 
 Now let's see how C++ automates *dynamic dispatch* using `virtual` methods and
 code reuse using inheritance.
@@ -58,7 +58,7 @@ Recall: Problems of manual vtables
 4. No shared code between similar types.
 
 ## C++ Syntactic Sugar: Virtual Methods!
-### Basic Virtual Method Syntax
+**Basic Virtual Method Syntax:**
 ```cpp
 class Payload {
 public:
@@ -79,7 +79,7 @@ public:
 };
 ```
 
-### What C++ Does Behind the Scenes
+**What C++ Does Behind the Scenes:**
 ```c
 // Compiler generates vtable automatically
 struct Payload_vtable {
@@ -310,7 +310,7 @@ Inheritance is syntactic sugar for sharing vtable entries and data. C++ did not
 invent polymorphism, it automated the plumbing.
 
 On next chapter, we will continue our journey with
-[references and copy management](../06_reference_and_copy_management/README.md).
+[references and copy management](../07_reference_and_copy_management.html).
 
 
 ## Pure Virtual Methods
@@ -340,7 +340,7 @@ crash at runtime.
 In C++: The compiler prevents this crash by refusing to compile any code that
 tries to create an object that hasn't fulfilled its pure virtual requirements.
 
-As you work through Exercise 05, notice that if you forget to implement
+As you work through Exercise 06, notice that if you forget to implement
 `process_arguments()` in classes that inherit Command, or `process_recipient()`
 in classes that inherit Message, your code will not compile. This is the
 "syntactic sugar" of compile-time safety replacing manual runtime checks.

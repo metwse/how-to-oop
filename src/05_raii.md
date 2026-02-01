@@ -1,17 +1,15 @@
-> `\begin{aside}`\
-> *Resource acquisition is initialization (RAII)* describe a particular
-> language behavior for managing resources. In RAII, holding a resource is a
-> *class invariant*, and is tied to *object lifetime*. Resource allocation
-> (or acquisition) is done during object creation (specifically
-> initialization), by the constructor, while resource deallocation (release)
-> is done during object destruction (specifically finalization), by the
-> destructor. In other words, resource acquisition must succeed for
-> initialization to succeed. Thus, the resource is guaranteed to be held
-> between when initialization finishes and finalization starts (holding the
-> resources is a class invariant), and to be held only when the object is
-> alive. Thus, if there are no object leaks, there are no resource leaks.
-> *[Wikipedia]*\
-> `\end{aside}`
+term Resource Acquisition is Initialization (RAII)
+  : Describe a particular language behavior for managing resources. In RAII,
+    holding a resource is a *class invariant*, and is tied to *object
+    lifetime*. Resource allocation (or acquisition) is done during object
+    creation (specifically initialization), by the constructor, while resource
+    deallocation (release) is done during object destruction (specifically
+    finalization), by the destructor. In other words, resource acquisition must
+    succeed for initialization to succeed. Thus, the resource is guaranteed to
+    be held between when initialization finishes and finalization starts
+    (holding the resources is a class invariant), and to be held only when the
+    object is alive. Thus, if there are no object leaks, there are no resource
+    leaks. *[Wikipedia]*
 
 We have been implementing RAII principle manually:
 1. `parse_payload()` construct payload object - that is *data + behavior*,
@@ -61,9 +59,8 @@ To familiarize yourself with C++ syntax, take a quick glance to links:
 5. [Access Specifiers](https://www.w3schools.com/cpp/cpp_access_specifiers.asp)
 
 ## Implementing RAII: String Class
-Let's build a RAII class from scratch using `char *`.
-
-### String Class with Manual Memory Management
+Let's build a RAII class from scratch using `char *`. Here is a string class
+with manual memory management:
 ```cpp
 class String {
 private:
@@ -87,7 +84,7 @@ public:
 };
 ```
 
-### Usage:
+Usage
 ```cpp
 {
     String username("alice");
@@ -96,7 +93,7 @@ public:
 }  // Destructors called automatically here!
 ```
 
-### Output:
+Output:
 ```
 String created: alice
 String created: Hello!
@@ -105,7 +102,7 @@ String destroyed: Hello!     ← Reverse order!
 String destroyed: alice      ← Reverse order!
 ```
 
-### What C++ Does Behind the Scenes:
+What C++ does behind the scenes:
 ```c
 // Equivalent C code:
 {
@@ -195,7 +192,7 @@ public:
 };
 ```
 
-### Full Execution:
+Full Execution:
 ```cpp
 int main() {
     LoginCommand p("alice", "s3cr3t");
@@ -203,7 +200,7 @@ int main() {
 }
 ```
 
-### Output:
+Output:
 ```
 String created: alice       ← username constructor
 String created: s3cr3t      ← password constructor
@@ -321,4 +318,4 @@ default through automatic constructor/destructor calls. This is syntactic sugar
 that prevents entire categories of memory bugs.
 
 We will continue our discussion with C++ virtual tables on
-[next chapter](../05_virtual-methods-and-inheritance/README.md).
+[next chapter](../06_virtual-methods-and-inheritance.html).

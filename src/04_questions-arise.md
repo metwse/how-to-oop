@@ -1,6 +1,6 @@
 # Questions Arise
-In Exercise 02, we eliminated giant switch statements using function pointers.
-But we have created new problems and reached limits of manual polymorphism.
+In Ch03, we eliminated giant switch statements using function pointers. But we
+have created new problems and reached limits of manual polymorphism.
 
 ## The Paradox of Repetition
 We complained about switch/case being repetitive. But look at what we wrote:
@@ -91,7 +91,7 @@ Question: Why are we duplicating the same pointers in every instance?
 ## Enter: The Virtual Function Table (vtable)
 The solution is to share function pointers across instances of the same type.
 
-### Concept: Separate Type Information from Instance Data
+**Concept: Separate Type Information from Instance Data**\
 Before (current approach):
 ```
 Each payload = [process*, destroy*, data]
@@ -107,7 +107,7 @@ vtable_message = [process_message*, destroy_message*]
                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  shared by ALL messages
 ```
 
-### C Implementation of vtables:
+**C Implementation of vtables:**
 ```c
 // Step 1: Define the vtable structure
 struct payload_vtable {
@@ -142,7 +142,7 @@ Using vtables, we reduced pointers to one pointer per instance instead of N
 pointers. Also, a partial type safety is ensured as all functions for a type
 live in one vtable.
 
-### Remaining Problems:
+### Remaining Problems
 1. Still manual: We still write if/else to assign vtables
 2. No enforcement: Can still assign wrong vtable to wrong data
 3. Constructor repetition: Every type needs init code
@@ -155,7 +155,7 @@ Function pointers solve the processing problem but create new problems:
 | Giant switch statements | Function pointers in structs | Repetitive declarations |
 | Adding new types modifies many places | Each type self-contained | Verbose construction |
 | Type/behavior coupling | Dynamic dispatch | No type safety |
-| - | - | Memory overhead (solved by vtables) |
+| - | - | Memory overhead (partially solved by vtables) |
 
 The pattern: Each solution introduces new complexity.
 
@@ -174,10 +174,9 @@ C++ doesn't invent new concepts. It automates what we have been doing. Recall
 | `payload->vtable->process(payload)` | `payload->process()` (syntactic sugar) |
 | Manual type safety checks | Compiler enforces at compile-time |
 
-## Implement vtables in C
-Refactor Exercise 02 to use vtables.
+## Objective
+Implement vtables in C. Refactor Ch03 to use vtables. You should:
 
-You should:
 1. Define `struct payload_vtable` & `struct message_receiving_entity_vtable`
 2. Create vtables for each payload & receiver type
 3. Change `struct payload` & `struct message_receiving_entity_` to use a
@@ -190,13 +189,13 @@ do under the hood.
 
 ---
 
-You have now implemented:
+You now have implemented:
 
-1. Polymorphism with enums + switch (Exercise 00-01)
-2. Polymorphism with function pointers (Exercise 02)
-3. Polymorphism with vtables (Exercise 03) ([solutions](./))
+1. Polymorphism with enums + switch (Ch 01-02)
+2. Polymorphism with function pointers (Ch 03)
+3. Polymorphism with vtables (Ch 04)
 
-We will translate Exercise 02 directly to C++ and see:
+We will translate Exercise 03 directly to C++ and see:
 - How `class` eliminates manual vtable management
 - How constructors automate function pointer assignment
 - How `virtual` provides type-safe polymorphism
@@ -207,5 +206,4 @@ Every limitation we have hit is a feature C++ automates. You are ready to
 appreciate what C++ actually does.
 
 A brief detour from polymorphism: Before discussing C++ polymorphism features,
-we should first cover how resources are managed using
-[RAII](../04_raii/README.md).
+we should first cover how resources are managed using [RAII](../05_raii.html).
