@@ -58,7 +58,7 @@ void print_string(String &s) {  // Reference, not copy
 }  // Nothing destroyed, just alias goes away
 
 int main() {
-    String name("alice");
+    String name { "alice" };
     print_string(name);  // No copy created!
 }  // name destroyed once, everything is fine
 ```
@@ -303,7 +303,7 @@ Rule of Zero: If all your members are RAII types (`std::string`, `std::vector`,
 ```cpp
 class Buffer {
 public:
-    Buffer(size_t s) : size(s) {
+    Buffer(size_t size_) : size { size_ } {
         data = new char[size];
         memset(data, 0, size);
     }
@@ -325,7 +325,7 @@ private:
 
 // This should work after you implement copy operations:
 void test_buffer() {
-    Buffer buf1(100);
+    Buffer buf1 { 100 };
     buf1.get_data()[0] = 'X';
 
     Buffer buf2 = buf1;  // Copy constructor
