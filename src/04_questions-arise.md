@@ -191,11 +191,11 @@ do under the hood.
 
 You now have implemented:
 
-1. Polymorphism with enums + switch (Ch 01-02)
-2. Polymorphism with function pointers (Ch 03)
-3. Polymorphism with vtables (Ch 04)
+1. Polymorphism with enums + switch (Ch01-02)
+2. Polymorphism with function pointers (Ch03)
+3. Polymorphism with vtables (Ch04)
 
-We will translate Exercise 03 directly to C++ and see:
+We will translate Ch03 directly to C++ and see:
 - How `class` eliminates manual vtable management
 - How constructors automate function pointer assignment
 - How `virtual` provides type-safe polymorphism
@@ -206,4 +206,4 @@ Every limitation we have hit is a feature C++ automates. You are ready to
 appreciate what C++ actually does.
 
 A brief detour from polymorphism: Before discussing C++ polymorphism features,
-we should first cover how resources are managed using [RAII](../05_raii.html).
+we should first cover how resources are managed using [RAII](./05_raii.html).

@@ -32,7 +32,7 @@ a better way to organize my code?"
 The answer is yes: *function pointers*.
 
 ## The Current Problem
-Look at your code from Exercise 01. Notice how every time you want to add a new
+Look at your code from Ch02. Notice how every time you want to add a new
 payload type, you have to modify code in multiple places:
 
 1. Add a new enum value to `payload_kind`
@@ -169,4 +169,4 @@ so many functions, is not this even more repetitive?
 - We still had problems in the old approach...
 
 **Up Next:**
-[A detailed discussion on dynamic dispatch](../04_questions-arise.html).
+[A detailed discussion on dynamic dispatch](./04_questions-arise.html).

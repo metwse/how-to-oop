@@ -318,4 +318,4 @@ default through automatic constructor/destructor calls. This is syntactic sugar
 that prevents entire categories of memory bugs.
 
 We will continue our discussion with C++ virtual tables on
-[next chapter](../06_virtual-methods-and-inheritance.html).
+[next chapter](./06_virtual-methods-and-inheritance.html).

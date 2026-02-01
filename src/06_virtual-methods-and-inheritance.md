@@ -1,9 +1,9 @@
 # Virtual Methods and Inheritance
-In [Ch04](../04_questions-arise.html), we discussed vtables and how they solve
+In [Ch04](./04_questions-arise.html), we discussed vtables and how they solve
 the problem of storing duplicate function pointers in every object. We also saw
 that manual vtable assignment is error-prone.
 
-In [Ch05](../05_raii.html), we learned how C++ automates resource management
+In [Ch05](./05_raii.html), we learned how C++ automates resource management
 with constructors and destructors.
 
 Now let's see how C++ automates *dynamic dispatch* using `virtual` methods and
@@ -310,7 +310,7 @@ Inheritance is syntactic sugar for sharing vtable entries and data. C++ did not
 invent polymorphism, it automated the plumbing.
 
 On next chapter, we will continue our journey with
-[references and copy management](../07_reference_and_copy_management.html).
+[references and copy management](./07_reference_and_copy_management.html).
 
 
 ## Pure Virtual Methods
@@ -340,7 +340,7 @@ crash at runtime.
 In C++: The compiler prevents this crash by refusing to compile any code that
 tries to create an object that hasn't fulfilled its pure virtual requirements.
 
-As you work through Exercise 06, notice that if you forget to implement
+As you work through Ch06, notice that if you forget to implement
 `process_arguments()` in classes that inherit Command, or `process_recipient()`
 in classes that inherit Message, your code will not compile. This is the
 "syntactic sugar" of compile-time safety replacing manual runtime checks.

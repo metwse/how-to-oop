@@ -83,7 +83,7 @@ Your program should:
   ```
 - Recap: [enum](https://www.w3schools.com/c/c_enums.php)
   ```c
-  union payload_kind {
+  enum payload_kind {
       COMMAND_LOGIN, COMMAND_LOGOUT /* ... */
   };
   ```
@@ -116,5 +116,5 @@ The problem this reveals is that the traditional approaches make extensions
 
   Inspect the solutions for this chapter. Current design principle becoming
   increasingly unmaintainable with
-  [new requirements](../03_refactoring-with-function-pointers.html).
+  [new requirements](./03_refactoring-with-function-pointers.html).
 </details>

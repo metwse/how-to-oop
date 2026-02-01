@@ -1,4 +1,12 @@
 [book]
-title = "how-to-oop"
+title = "How to OOP?"
 authors = ["Metehan Selvi"]
 language = "en"
+
+[output.html]
+mathjax-support = false
+git-repository-url = "https://github.com/metwse/how-to-oop"
+edit-url-template = "https://github.com/metwse/how-to-oop/edit/main/{path}"
+
+[output.html.playground]
+runnable = false

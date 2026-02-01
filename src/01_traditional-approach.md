@@ -82,4 +82,4 @@ this pattern!
 
 Implement logic for this task yourself, and then inspect the solution 01.
 After that, you can start working on the
-[second milestone](../02_extending-a-non-oop-project.html).
+[second milestone](./02_extending-a-non-oop-project.html).

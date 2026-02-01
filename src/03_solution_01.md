@@ -66,11 +66,11 @@ void process_next(struct payload_buffer *buf) {
 process itself.
 
 ### 3. File Organization for Isolation
-Exercise 02 Structure:
+Ch02 Structure:
 - `traditional_dispatch.h`: Everything (types, buffer, functions)
 - `traditional_dispatch.c`: All logic mixed together
 
-Exercise 03 Structure:
+Ch03 Structure:
 - `payload.h` / `payload.c`: Payload types and behaviors (process/destroy
    functions)
 - `dynamic_dispatch.h` / `dynamic_dispatch.c`: Buffer management and
@@ -142,5 +142,5 @@ Even with function pointers, we still have problems:
    (process + destroy)
 3. **No type safety:** Nothing prevents mixing incompatible function pointers
 
-**Next:** The [extended version](../03_solution_02.md) implements the new requirements
+**Next:** The [extended version](./03_solution_02.md) implements the new requirements
 (multiple receivers) to further demonstrate the benefits of dynamic dispatch.
