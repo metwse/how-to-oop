@@ -7,10 +7,10 @@ fi
 
 IFS='.' read -r -a levels <<< "$1"
 
-target_path="."
+target_path="solutions/"
 
 for level in "${levels[@]}"; do
-    next_path=$(find "$target_path" -maxdepth 1 -type d -name "${level}_*" | head -n 1)
+    next_path=$(find "$target_path" -maxdepth 1 -type d -name "${level}" | head -n 1)
     if [ -z "$next_path" ]; then
         echo "Error: Directory for index '$level' not found."
         exit 1
