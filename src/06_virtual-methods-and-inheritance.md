@@ -310,7 +310,7 @@ Inheritance is syntactic sugar for sharing vtable entries and data. C++ did not
 invent polymorphism, it automated the plumbing.
 
 On next chapter, we will continue our journey with
-[references and copy management](./07_reference_and_copy_management.html).
+[references and copy management](./07_reference-and-copy-management.html).
 
 
 ## Pure Virtual Methods

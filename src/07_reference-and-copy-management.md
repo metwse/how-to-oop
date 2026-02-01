@@ -408,4 +408,6 @@ Future topics (you will learn during your hands-on project):
 - Exception safety
 
 But with references and proper copy control, you have the foundation for safe
-C++ programming!
+C++ programming! [In the next chapter](./08_four-pillars-of-oop.html), we will
+reinforce what we have learned so far with a more theoretical explanation, and
+then we begin developing pracical applications.

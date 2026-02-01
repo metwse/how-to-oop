@@ -11,4 +11,5 @@
 - [Questions Arise](./04_questions-arise.md)
 - [RAII](./05_raii.md)
 - [Virtual Methods and Inheritance](./06_virtual-methods-and-inheritance.md)
-- [Reference and Copy Management](./07_reference_and_copy_management.md)
+- [Reference and Copy Management](./07_reference-and-copy-management.md)
+- [Four Pillars of OOP](./08_four-pillars-of-oop.md)
